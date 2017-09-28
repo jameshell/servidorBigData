@@ -11,6 +11,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A server program which accepts requests from clients to
@@ -37,13 +40,14 @@ public class BigDataServer {
     public static void main(String[] args) throws Exception {
         
         System.out.println("Servidor corriendo!");
+         List<Integer> listaDeDatos = new ArrayList<>();
         int clientNumber = 0;
         ServerSocket listener = new ServerSocket(9898);
         
         try {
             while (true) {
                 new Capitalizer(listener.accept(), clientNumber++).start();
-                if(clientNumber==2){
+                if(clientNumber==4){
                     processPrimeNumbers();
                 }
             }
@@ -82,6 +86,8 @@ public class BigDataServer {
          * client a welcome message then repeatedly reading strings
          * and sending back the capitalized version of the string.
          */
+    
+        
         public void run() {
             try {
 
@@ -94,28 +100,49 @@ public class BigDataServer {
                 // Send a welcome message to the client.
                 out.println("Hola!, Eres el cliente #" + clientNumber + ".");
                  
-                int numeroAComputar;
-                String payload="Not assigned";
+                int numeroAComputar=300;
+                int partesPorCliente;
+                double num;
+                if(numeroAComputar%3==0){
+                    partesPorCliente=numeroAComputar/3;
+                } else{
+                 num=numeroAComputar/3;
+                    partesPorCliente= (int) num;
+                    
+                }
+                
+                
+                String payload="Payload sin asignar...";
+                int limiteInferior=0;
                
                 if(clientNumber==0){
                   //  out.println("100");
-                    payload="100";
-                    out.println("Este cliente realizara el proceso de numeros primos de 1 a 100!\n");
+                    limiteInferior=0;
+                    payload=String.valueOf(partesPorCliente);
+                    out.println("Este cliente realizara el proceso de numeros primos de "+limiteInferior+" a "+partesPorCliente+"!\n");
               
                 }
                 if(clientNumber==1){
                    // out.println("200");
-                    payload="200";
-                    out.println("Este cliente realizara el proceso de numeros primos de 1 a 200!\n");
+                    limiteInferior=partesPorCliente;
+                    int partesPorCliente2=partesPorCliente*2;
+                    payload=String.valueOf(partesPorCliente2);
+                    out.println("Este cliente realizara el proceso de numeros primos de "+limiteInferior+" a "+partesPorCliente2+"!\n");
      
                 }
                 if(clientNumber==2){
                    // out.println("300");
-                    payload="300";
-                    out.println("Este cliente realizara el proceso de numeros primos de 1 a 300!\n");
+                    limiteInferior=partesPorCliente*2;
+                    int partesPorCliente3=partesPorCliente*3;
+                    payload=String.valueOf(partesPorCliente3);
+                    out.println("Este cliente realizara el proceso de numeros primos de "+limiteInferior+" a "+partesPorCliente3+"!\n");
           
                 }
                 
+                
+                 List<Integer> listaDeDatos = new ArrayList<>();
+            
+                 
 
 
                 // Get messages from the client, line by line; return them
@@ -124,8 +151,13 @@ public class BigDataServer {
                     String input = in.readLine();
                     
                     if(input.equals("askprimo")){
-                        out.println(payload);
+                        out.println(String.valueOf(limiteInferior)+" "+payload);
+                        String data = in.readLine();
                         
+                        listaDeDatos.add(Integer.parseInt(data));
+                        System.out.println("-------- Se almacena en la lista el dato ------ ");
+                        System.out.println(Arrays.toString(listaDeDatos.toArray()));
+                       
                     } else if (input == null || input.equals(".")) {
                         break;
                     }
