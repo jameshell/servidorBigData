@@ -39,6 +39,7 @@ public class BigDataServer {
         System.out.println("Servidor corriendo!");
         int clientNumber = 0;
         ServerSocket listener = new ServerSocket(9898);
+        
         try {
             while (true) {
                 new Capitalizer(listener.accept(), clientNumber++).start();
@@ -93,19 +94,24 @@ public class BigDataServer {
                 // Send a welcome message to the client.
                 out.println("Hola!, Eres el cliente #" + clientNumber + ".");
                  
+                int numeroAComputar;
+                String payload="Not assigned";
                
                 if(clientNumber==0){
-                    out.println("100");
+                  //  out.println("100");
+                    payload="100";
                     out.println("Este cliente realizara el proceso de numeros primos de 1 a 100!\n");
               
                 }
                 if(clientNumber==1){
-                    out.println("200");
+                   // out.println("200");
+                    payload="200";
                     out.println("Este cliente realizara el proceso de numeros primos de 1 a 200!\n");
      
                 }
                 if(clientNumber==2){
-                    out.println("300");
+                   // out.println("300");
+                    payload="300";
                     out.println("Este cliente realizara el proceso de numeros primos de 1 a 300!\n");
           
                 }
@@ -116,7 +122,11 @@ public class BigDataServer {
                 // capitalized
                 while (true) {
                     String input = in.readLine();
-                    if (input == null || input.equals(".")) {
+                    
+                    if(input.equals("askprimo")){
+                        out.println(payload);
+                        
+                    } else if (input == null || input.equals(".")) {
                         break;
                     }
                     out.println(input.toUpperCase());
