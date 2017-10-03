@@ -61,9 +61,7 @@ public class BigDataServer {
     
     
     public static void processPrimeNumbers(){
-        
-        
-        System.out.println("ENVIANDO NUMEROS PRIMOS");
+        System.out.println("RECOGIENDO NUMEROS PRIMOS");
     }
 
     /**
@@ -125,17 +123,19 @@ public class BigDataServer {
                 if(clientNumber==1){
                    // out.println("200");
                     limiteInferior=partesPorCliente;
+                    int limstr=limiteInferior+1;
                     int partesPorCliente2=partesPorCliente*2;
                     payload=String.valueOf(partesPorCliente2);
-                    out.println("Este cliente realizara el proceso de numeros primos de "+limiteInferior+" a "+partesPorCliente2+"!\n");
+                    out.println("Este cliente realizara el proceso de numeros primos de "+limstr+" a "+partesPorCliente2+"!\n");
      
                 }
                 if(clientNumber==2){
                    // out.println("300");
                     limiteInferior=partesPorCliente*2;
+                    int limstr= limiteInferior+1;
                     int partesPorCliente3=partesPorCliente*3;
                     payload=String.valueOf(partesPorCliente3);
-                    out.println("Este cliente realizara el proceso de numeros primos de "+limiteInferior+" a "+partesPorCliente3+"!\n");
+                    out.println("Este cliente realizara el proceso de numeros primos de "+limstr+" a "+partesPorCliente3+"!\n");
           
                 }
                 
